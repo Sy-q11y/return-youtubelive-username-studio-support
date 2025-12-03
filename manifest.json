@@ -4,6 +4,9 @@
   "version": "1.0",
   "description": "Displays usernames in 'Username (Handle ID)' format in YouTube Live chat.",
   "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html"
+  },
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*"],

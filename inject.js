@@ -3,6 +3,21 @@
     console.log('[YT Handle Enhancer] Inject script loaded.');
 
     const channelHandleCache = new Map();
+    let displayMode = 'both'; // 'both', 'name', 'handle'
+
+    // Listen for display mode changes
+    window.addEventListener('message', (event) => {
+        if (event.source !== window) return;
+        if (event.data.type === 'displayModeChanged') {
+            displayMode = event.data.mode;
+            console.log(`[YT Handle Enhancer] Display mode changed to: ${displayMode}`);
+            // Update all existing messages
+            updateAllMessages();
+        }
+    });
+
+    // Load initial display mode from storage
+    window.postMessage({ type: 'getDisplayMode' }, '*');
 
     const fetchHandle = async (channelId) => {
         console.log(`[YT Handle Enhancer] Fetching RSS feed to get channel title for: ${channelId}`);
@@ -35,11 +50,38 @@
 
     const updateAuthorName = (authorChip, authorName, handle) => {
         const authorNameElement = authorChip.querySelector('#author-name');
-        if (authorNameElement && !authorChip.dataset.handleModified) {
-            console.log(`[YT Handle Enhancer] Modifying: ${authorName} -> ${authorName} (${handle})`);
-            authorNameElement.textContent = `${authorName} (${handle})`;
+        if (authorNameElement) {
+            let displayText;
+            switch (displayMode) {
+                case 'name':
+                    displayText = authorName;
+                    break;
+                case 'handle':
+                    displayText = handle || authorName;
+                    break;
+                case 'both':
+                default:
+                    displayText = handle ? `${authorName} (${handle})` : authorName;
+                    break;
+            }
+
+            console.log(`[YT Handle Enhancer] Updating display: ${authorName} -> ${displayText} (mode: ${displayMode})`);
+            authorNameElement.textContent = displayText;
             authorChip.dataset.handleModified = 'true';
+            authorChip.dataset.originalName = authorName;
+            authorChip.dataset.channelHandle = handle || '';
         }
+    };
+
+    const updateAllMessages = () => {
+        document.querySelectorAll('yt-live-chat-text-message-renderer').forEach(node => {
+            const authorChip = node.querySelector('yt-live-chat-author-chip');
+            if (authorChip && authorChip.dataset.originalName) {
+                const authorName = authorChip.dataset.originalName;
+                const handle = authorChip.dataset.channelHandle;
+                updateAuthorName(authorChip, authorName, handle);
+            }
+        });
     };
 
     const processMessageNode = async (node) => {

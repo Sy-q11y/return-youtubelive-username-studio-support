@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Live Chat Settings</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <h1>表示設定</h1>
+        <div class="settings">
+            <label class="radio-option">
+                <input type="radio" name="displayMode" value="both" checked>
+                <span>両方表示 (名前 (ハンドル))</span>
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="displayMode" value="name">
+                <span>名前のみ</span>
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="displayMode" value="handle">
+                <span>ハンドルのみ</span>
+            </label>
+        </div>
+        <div class="status" id="status"></div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
