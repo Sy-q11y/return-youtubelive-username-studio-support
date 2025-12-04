@@ -1,0 +1,30 @@
+{
+  "extensionName": {
+    "message": "Return YouTube Live Username",
+    "description": "Name of the extension"
+  },
+  "extensionDescription": {
+    "message": "Switch display between username, handle, or both in YouTube live chat.",
+    "description": "Description of the extension"
+  },
+  "popupTitle": {
+    "message": "Display Settings",
+    "description": "Title of the popup settings page"
+  },
+  "displayModeBoth": {
+    "message": "Both (Name (Handle))",
+    "description": "Option to display both username and handle"
+  },
+  "displayModeNameOnly": {
+    "message": "Name Only",
+    "description": "Option to display username only"
+  },
+  "displayModeHandleOnly": {
+    "message": "Handle Only",
+    "description": "Option to display handle only"
+  },
+  "settingsSaved": {
+    "message": "Settings saved",
+    "description": "Status message when settings are saved"
+  }
+}

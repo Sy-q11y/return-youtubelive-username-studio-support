@@ -1,0 +1,30 @@
+{
+  "extensionName": {
+    "message": "Recuperar nombre de usuario de YouTube Live",
+    "description": "Nombre de la extensión"
+  },
+  "extensionDescription": {
+    "message": "Cambia la visualización entre nombre de usuario, identificador o ambos en el chat en vivo de YouTube.",
+    "description": "Descripción de la extensión"
+  },
+  "popupTitle": {
+    "message": "Configuración de visualización",
+    "description": "Título de la página de configuración emergente"
+  },
+  "displayModeBoth": {
+    "message": "Ambos (Nombre (Identificador))",
+    "description": "Opción para mostrar nombre de usuario e identificador"
+  },
+  "displayModeNameOnly": {
+    "message": "Solo nombre",
+    "description": "Opción para mostrar solo el nombre de usuario"
+  },
+  "displayModeHandleOnly": {
+    "message": "Solo identificador",
+    "description": "Opción para mostrar solo el identificador"
+  },
+  "settingsSaved": {
+    "message": "Configuración guardada",
+    "description": "Mensaje de estado cuando se guarda la configuración"
+  }
+}

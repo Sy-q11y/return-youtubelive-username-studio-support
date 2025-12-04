@@ -1,0 +1,30 @@
+{
+  "extensionName": {
+    "message": "Kembalikan nama pengguna YouTube Live",
+    "description": "Nama ekstensi"
+  },
+  "extensionDescription": {
+    "message": "Beralih tampilan antara nama pengguna, handle, atau keduanya di obrolan langsung YouTube.",
+    "description": "Deskripsi ekstensi"
+  },
+  "popupTitle": {
+    "message": "Pengaturan tampilan",
+    "description": "Judul halaman pengaturan popup"
+  },
+  "displayModeBoth": {
+    "message": "Keduanya (Nama (Handle))",
+    "description": "Opsi untuk menampilkan nama pengguna dan handle"
+  },
+  "displayModeNameOnly": {
+    "message": "Hanya nama",
+    "description": "Opsi untuk menampilkan hanya nama pengguna"
+  },
+  "displayModeHandleOnly": {
+    "message": "Hanya handle",
+    "description": "Opsi untuk menampilkan hanya handle"
+  },
+  "settingsSaved": {
+    "message": "Pengaturan disimpan",
+    "description": "Pesan status saat pengaturan disimpan"
+  }
+}

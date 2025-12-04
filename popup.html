@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,19 +8,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>表示設定</h1>
+        <h1 data-i18n="popupTitle">Display Settings</h1>
         <div class="settings">
             <label class="radio-option">
                 <input type="radio" name="displayMode" value="both" checked>
-                <span>両方表示 (名前 (ハンドル))</span>
+                <span data-i18n="displayModeBoth">Both (Name (Handle))</span>
             </label>
             <label class="radio-option">
                 <input type="radio" name="displayMode" value="name">
-                <span>名前のみ</span>
+                <span data-i18n="displayModeNameOnly">Name Only</span>
             </label>
             <label class="radio-option">
                 <input type="radio" name="displayMode" value="handle">
-                <span>ハンドルのみ</span>
+                <span data-i18n="displayModeHandleOnly">Handle Only</span>
             </label>
         </div>
         <div class="status" id="status"></div>

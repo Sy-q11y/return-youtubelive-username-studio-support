@@ -1,0 +1,30 @@
+{
+  "extensionName": {
+    "message": "YouTube लाइव उपयोगकर्ता नाम वापस करें",
+    "description": "एक्सटेंशन का नाम"
+  },
+  "extensionDescription": {
+    "message": "YouTube लाइव चैट में उपयोगकर्ता नाम, हैंडल या दोनों के बीच प्रदर्शन को स्विच करें।",
+    "description": "एक्सटेंशन का विवरण"
+  },
+  "popupTitle": {
+    "message": "प्रदर्शन सेटिंग्स",
+    "description": "पॉपअप सेटिंग्स पेज का शीर्षक"
+  },
+  "displayModeBoth": {
+    "message": "दोनों (नाम (हैंडल))",
+    "description": "उपयोगकर्ता नाम और हैंडल दोनों प्रदर्शित करने का विकल्प"
+  },
+  "displayModeNameOnly": {
+    "message": "केवल नाम",
+    "description": "केवल उपयोगकर्ता नाम प्रदर्शित करने का विकल्प"
+  },
+  "displayModeHandleOnly": {
+    "message": "केवल हैंडल",
+    "description": "केवल हैंडल प्रदर्शित करने का विकल्प"
+  },
+  "settingsSaved": {
+    "message": "सेटिंग्स सहेजी गईं",
+    "description": "सेटिंग्स सहेजे जाने पर स्थिति संदेश"
+  }
+}

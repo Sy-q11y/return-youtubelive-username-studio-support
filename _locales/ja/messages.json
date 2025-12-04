@@ -1,0 +1,30 @@
+{
+  "extensionName": {
+    "message": "YouTubeライブのバンドルを名前に戻る",
+    "description": "拡張機能の名前"
+  },
+  "extensionDescription": {
+    "message": "YouTubeライブチャットでユーザー名、ハンドル、または両方の表示を自由に切り替えられます。",
+    "description": "拡張機能の説明"
+  },
+  "popupTitle": {
+    "message": "表示設定",
+    "description": "ポップアップ設定ページのタイトル"
+  },
+  "displayModeBoth": {
+    "message": "両方表示 (名前 (ハンドル))",
+    "description": "ユーザー名とハンドルの両方を表示するオプション"
+  },
+  "displayModeNameOnly": {
+    "message": "名前のみ",
+    "description": "ユーザー名のみを表示するオプション"
+  },
+  "displayModeHandleOnly": {
+    "message": "ハンドルのみ",
+    "description": "ハンドルのみを表示するオプション"
+  },
+  "settingsSaved": {
+    "message": "設定を保存しました",
+    "description": "設定が保存されたときのステータスメッセージ"
+  }
+}

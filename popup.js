@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    // Apply localization
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const message = chrome.i18n.getMessage(key);
+        if (message) {
+            element.textContent = message;
+        }
+    });
+
     const radioButtons = document.querySelectorAll('input[name="displayMode"]');
     const statusDiv = document.getElementById('status');
 
@@ -20,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             await chrome.storage.sync.set({ displayMode: mode });
 
             // Show status message
-            statusDiv.textContent = '設定を保存しました';
+            statusDiv.textContent = chrome.i18n.getMessage('settingsSaved');
             statusDiv.classList.add('show');
 
             // Send message to content scripts to update display
