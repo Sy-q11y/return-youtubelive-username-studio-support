@@ -1,6 +1,7 @@
 # return-youtube-live-username
 
-YouTubeのライブチャットで、ユーザー名の表示形式を自由に切り替えられるChrome拡張機能です。
+YouTubeのライブチャットで、ユーザー名の表示形式を自由に切り替えられるYouTube Studio対応のChrome拡張機能です。
+本家を作ったlenlinoさんに感謝します。
 
 # 導入方法
 
