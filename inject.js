@@ -1,7 +1,9 @@
 (function() {
     'use strict';
+    // Detect if running inside the Studio live_chat iframe or similar
+    const IN_LIVE_CHAT_FRAME = location.pathname.startsWith('/live_chat') || (window.frameElement && (window.frameElement.id === 'live-chat' || (window.frameElement.classList && window.frameElement.classList.contains('ytcp-live-chat-frame'))));
     // Debug mode: set to true to enable detailed logging
-    const DEBUG = false;
+    const DEBUG = true;
 
     const channelHandleCache = new Map();
     let displayMode = 'both'; // 'both', 'name', 'handle'
@@ -20,33 +22,32 @@
     // Load initial display mode from storage
     window.postMessage({ type: 'getDisplayMode' }, '*');
 
-    const fetchHandle = async (channelId) => {
-        if (DEBUG) console.log(`[YT Handle Enhancer] Fetching RSS feed for: ${channelId}`);
-        try {
-            const response = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`);
-            if (!response.ok) {
-                console.error(`[YT Handle Enhancer] RSS Feed fetch failed with status: ${response.status}`);
-                return null;
-            }
+    // Request RSS fetch via extension (content script -> background) to avoid CORS
+    const fetchHandle = (channelId) => {
+        if (DEBUG) console.log(`[YT Handle Enhancer] Requesting RSS fetch for: ${channelId}`);
+        return new Promise((resolve) => {
+            const reqId = `yt_handle_req_${channelId}_${Date.now()}`;
+            const onResponse = (event) => {
+                if (event.source !== window) return;
+                const d = event.data || {};
+                if (d.type === 'fetchHandleResponse' && d.reqId === reqId) {
+                    window.removeEventListener('message', onResponse);
+                    if (DEBUG) console.log('[YT Handle Enhancer] Received fetch response', d);
+                    resolve(d.title || null);
+                }
+            };
 
-            const text = await response.text();
+            // Timeout fallback
+            const timeout = setTimeout(() => {
+                window.removeEventListener('message', onResponse);
+                if (DEBUG) console.warn('[YT Handle Enhancer] fetchHandle timed out for', channelId);
+                resolve(null);
+            }, 8000);
 
-            // Extract the <title> tag content
-            const titleMatch = text.match(/<title>([^<]+)<\/title>/);
-
-            if (titleMatch && titleMatch[1]) {
-                const channelTitle = titleMatch[1];
-                if (DEBUG) console.log(`[YT Handle Enhancer] Found channel title: ${channelTitle}`);
-                return channelTitle; // Returning the title instead of the handle
-            }
-
-            if (DEBUG) console.warn(`[YT Handle Enhancer] Could not find <title> in RSS feed for ${channelId}`);
-            return null;
-
-        } catch (error) {
-            console.error('[YT Handle Enhancer] Failed to fetch RSS feed:', error);
-        }
-        return null;
+            window.addEventListener('message', onResponse);
+            // Send request to content script to forward to background
+            window.postMessage({ type: 'fetchHandleRequest', channelId, reqId }, '*');
+        });
     };
 
     const updateAuthorName = (authorChip, authorName, handle) => {
@@ -193,9 +194,21 @@
     });
 
     const findChatAndStart = () => {
-        const chat = document.querySelector('yt-live-chat-app');
+        // Try a set of possible chat root selectors (covers Studio iframe variants)
+        const rootSelectors = ['yt-live-chat-app', 'yt-live-chat-renderer', 'yt-live-chat-frame', 'ytd-live-chat-renderer', '#items'];
+        let chat = null;
+        for (const sel of rootSelectors) {
+            chat = document.querySelector(sel);
+            if (chat) break;
+        }
+
+        // If running inside known live_chat iframe and no specific root found, fallback to body
+        if (!chat && IN_LIVE_CHAT_FRAME) {
+            chat = document.body;
+        }
+
         if (chat) {
-            if (DEBUG) console.log('[YT Handle Enhancer] Chat app found. Starting observer.');
+            if (DEBUG) console.log('[YT Handle Enhancer] Chat app found. Starting observer. inLiveChatFrame=' + IN_LIVE_CHAT_FRAME);
             // Process existing messages first (all types)
             const messageSelectors = [
                 'yt-live-chat-text-message-renderer',

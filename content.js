@@ -17,6 +17,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
 });
 
+// Listen for fetchHandleRequest from page and forward to background
+window.addEventListener('message', (event) => {
+    if (event.source !== window) return;
+    const data = event.data || {};
+    if (data.type === 'fetchHandleRequest' && data.channelId) {
+        chrome.runtime.sendMessage({ type: 'fetchHandle', channelId: data.channelId, reqId: data.reqId }, (response) => {
+            // respond back to page
+            window.postMessage({ type: 'fetchHandleResponse', channelId: data.channelId, reqId: data.reqId, title: response?.title || null }, '*');
+        });
+    }
+});
+
 // Handle requests for current display mode from injected script
 window.addEventListener('message', async (event) => {
     if (event.source !== window) return;
